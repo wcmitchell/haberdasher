@@ -31,7 +31,8 @@ func (e kafkaEmitter) Setup() {
 
 	topic, exists = os.LookupEnv("HABERDASHER_KAFKA_TOPIC")
 	if !exists {
-		log.Fatal("To use Haberdasher with Kafka, HABERDASHER_KAFKA_TOPIC must be set to your logging topic")
+		log.Println("HABERDASHER_KAFKA_TOPIC not defined, using 'platform.logging.logs'")
+		topic = "platform.logging.logs"
 	}
 
 	producer = kafka.NewWriter(kafka.WriterConfig{
